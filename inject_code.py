@@ -2,10 +2,7 @@ import os
 
 # Define the HTML code to be injected
 injection_code = """
- <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
-    />
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="https://onlinenotepad.lol/sitemap.xml" />
 """
 
 # Function to inject code into HTML files
