@@ -1,9 +1,10 @@
 :root {
-  --primary-color: #4a90e2;
-  --secondary-color: #50c878;
-  --background-color: #f8f9fa;
-  --text-color: #333;
+  --primary-color: #4a90e2; /* Keep this for header and footer */
+  --secondary-color: #50c878; /* Keep this for buttons */
+  --background-color: #ffffff; /* White background for better contrast */
+  --text-color: #333333; /* Darker text color for better readability */
   --light-gray: #e9ecef;
+  --footer-color: #4a90e2; /* Keep this for footer */
 }
 
 body {
@@ -17,7 +18,7 @@ body {
 
 header {
   background-color: var(--primary-color);
-  color: white;
+  color: white; /* Ensure text is white for contrast */
   padding: 1rem 0;
 }
 
@@ -75,15 +76,30 @@ main {
   font-size: 1.2rem;
 }
 
-.cta-button {
+a {
+  color: var(--primary-color); /* Use primary color for links */
+  text-decoration: none;
+}
+
+a.cta-button {
   display: inline-block;
   background-color: var(--secondary-color);
-  color: white;
+  color: white; /* Ensure text is white for contrast */
   padding: 0.75rem 1.5rem;
   text-decoration: none;
   border-radius: 5px;
   font-weight: bold;
   transition: background-color 0.3s ease;
+}
+
+a.cta-button.bg-less {
+  background-color: #ffffff; /* White background for better contrast */
+  border: 1px solid var(--secondary-color);
+  color: var(--secondary-color); /* Use secondary color for text */
+}
+
+p {
+  color: var(--text-color); /* Ensure paragraph text is dark for contrast */
 }
 
 .cta-button:hover {
@@ -146,8 +162,8 @@ main {
 }
 
 footer {
-  background-color: var(--primary-color);
-  color: white;
+  background-color: var(--footer-color);
+  color: white; /* Ensure text is white for contrast */
   text-align: center;
   padding: 1rem 0;
   margin-top: 2rem;
