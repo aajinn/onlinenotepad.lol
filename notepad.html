@@ -7,9 +7,9 @@
     <style>
       /* styles.css */
       body {
-        font-family: "Courier New", Courier, monospace; /* Monospace font for notepad style */
-        background-color: #f5f5f5; /* Light background */
-        color: #333; /* Dark text color */
+        font-family: "Courier New", Courier, monospace;
+        background-color: #f5f5f5;
+        color: #333;
         margin: 0;
         padding: 20px;
       }
@@ -17,32 +17,22 @@
         text-align: center;
       }
       #editor {
-        border: 1px solid #ccc; /* Light border */
-        background-color: #fff; /* White background for the editor */
+        border: 1px solid #ccc;
+        background-color: #fff;
         padding: 10px;
-        height: 400px; /* Set a height for the editor */
-        overflow-y: auto; /* Enable vertical scrolling */
-        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-        border-radius: 4px; /* Rounded corners */
+        height: 400px;
+        overflow-y: auto;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+        border-radius: 4px;
       }
 
       .ql-toolbar {
-        border: 1px solid #ccc; /* Light border for the toolbar */
-        background-color: #eaeaea; /* Slightly darker background for the toolbar */
-        border-radius: 4px; /* Rounded corners */
-        margin-bottom: 10px; /* Space between toolbar and editor */
+        border: 1px solid #ccc;
+        background-color: #eaeaea;
+        border-radius: 4px;
+        margin-bottom: 10px;
       }
 
-      .ql-toolbar button {
-        background-color: transparent; /* Transparent buttons */
-        border: none; /* No border */
-        color: #333; /* Dark text color for buttons */
-        cursor: pointer; /* Pointer cursor on hover */
-      }
-
-      .ql-toolbar button:hover {
-        background-color: #d3d3d3; /* Light gray on hover */
-      }
       #save-button {
         border: 0.3px solid rgb(85, 83, 83);
         width: fit-content;
@@ -50,6 +40,11 @@
         color: #ffffff;
       }
 
+      #word-count {
+        margin-top: 10px;
+        font-size: 14px;
+        color: #333;
+      }
       #speak-button {
         margin-left: 10px;
         border: 0.3px solid rgb(85, 83, 83);
@@ -61,18 +56,9 @@
     <link
       href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css"
       rel="stylesheet"
+      defer
     />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css"
-    />
-    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"
-    />
   </head>
   <body>
     <h1>Online Notepad</h1>
@@ -121,20 +107,42 @@
       <span class="ql-formats">
         <button class="ql-clean"></button>
         <button id="save-button">Save</button>
-        <button id="speak-button">Read</button>
       </span>
     </div>
 
     <div id="editor"></div>
 
+    <div id="word-count">Word count: 0</div>
+
     <script>
       const quill = new Quill("#editor", {
         modules: {
-          syntax: true,
           toolbar: "#toolbar-container",
         },
         placeholder: "Compose an epic...",
         theme: "snow",
+      });
+
+      const savedContent = localStorage.getItem("editorContent");
+      if (savedContent) {
+        quill.root.innerHTML = savedContent; // Load content from localStorage
+      }
+
+      // Function to update word count
+      function updateWordCount() {
+        const text = quill.getText().trim();
+        const wordCount = text
+          .split(/\s+/)
+          .filter((word) => word.length > 0).length;
+        document.getElementById(
+          "word-count"
+        ).innerText = `Word count: ${wordCount}`;
+      }
+
+      // Event listener for text changes in the Quill editor
+      quill.on("text-change", function () {
+        updateWordCount();
+        localStorage.setItem("editorContent", quill.root.innerHTML);
       });
 
       // Function to save the content as a .txt file
@@ -142,20 +150,16 @@
         .getElementById("save-button")
         .addEventListener("click", function () {
           const text = quill.getText(); // Get the text from the editor
-          const blob = new Blob([text], { type: "text/plain" }); // Create a blob
-          const link = document.createElement("a"); // Create a link element
-          link.href = URL.createObjectURL(blob); // Create a URL for the blob
-          link.download = "document.txt"; // Set the file name
-          link.click(); // Trigger the download
-        });
-
-      // Text-to-Speech functionality
-      document
-        .getElementById("speak-button")
-        .addEventListener("click", function () {
-          const text = quill.getText(); // Get the text from the editor
-          const speech = new SpeechSynthesisUtterance(text); // Create a speech synthesis object
-          speechSynthesis.speak(speech); // Speak the text
+          const fileName = prompt("Enter a file name:", "document"); // Prompt for file name
+          if (fileName) {
+            const blob = new Blob([text], { type: "text/plain" }); // Create a blob
+            const link = document.createElement("a"); // Create a link element
+            link.href = URL.createObjectURL(blob); // Create a URL for the blob
+            link.download = `${fileName}.txt`; // Set the file name with .txt extension
+            link.click(); // Trigger the download
+          } else {
+            alert("File name cannot be empty!");
+          }
         });
     </script>
   </body>
