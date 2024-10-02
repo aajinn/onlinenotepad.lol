@@ -22,40 +22,18 @@ header {
   padding: 1rem 0;
 }
 
-nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 1rem;
-}
-
 .logo {
   font-size: 1.5rem;
   font-weight: bold;
 }
 
-nav ul {
-  list-style-type: none;
-  display: flex;
-  padding: 0;
-}
-
-nav ul li {
-  margin-left: 1rem;
-}
-
 nav ul li a {
-  color: white;
-  text-decoration: none;
-  transition: color 0.3s;
+  color: #ffffff;
 }
-
-nav ul li a:hover {
-  color: #e0e0e0;
+nav {
+  display: flex;
+  justify-content: space-evenly;
 }
-
 main {
   max-width: 1200px;
   margin: 2rem auto;
