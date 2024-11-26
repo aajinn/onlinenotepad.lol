@@ -138,7 +138,7 @@ export default function Notepad() {
     };
 
     return (
-        <div className="container mx-auto p-4 max-w-2xl">
+        <div className="container mx-auto p-4 max-w-full md:max-w-2xl">
             <h1 className="text-2xl font-bold mb-4 text-center">
                 Online Notepad{' '}
                 <span
@@ -162,14 +162,15 @@ export default function Notepad() {
                     &apos;.lol&apos;
                 </span>
             </h1>
-            <div className="flex border rounded-lg shadow-sm">
+            <div className="flex flex-col md:flex-row border rounded-lg shadow-sm">
                 {/* Line Numbers Sidebar */}
                 <div
                     ref={linesRef}
-                    className="bg-gray-200 text-gray-700 text-right pr-4 py-2 select-none overflow-hidden h-[500px]">
+                    className="bg-gray-200 text-gray-700 text-right pr-4 py-2 select-none overflow-hidden md:h-[500px]">
                     {lines.map(
                         (_, index) => (
                             <div
+                                className="ml-1"
                                 key={
                                     index
                                 }
@@ -204,7 +205,7 @@ export default function Notepad() {
                         fontSize:
                             textSize,
                     }}
-                    className="flex-1 h-[500px] p-3 border-l resize-none text-black overflow-y-scroll"
+                    className="flex-1 h-[300px] md:h-[500px] p-3 border-l resize-none text-black overflow-y-scroll"
                     placeholder="Start typing your notes here..."
                 />
             </div>
