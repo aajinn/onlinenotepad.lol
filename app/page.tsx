@@ -1,26 +1,14 @@
 'use client';
 
-export default function Home() {
+import { memo } from 'react';
+import Link from 'next/link';
+
+const Home = () => {
     return (
         <div className="flex flex-col items-center">
-            <header className="w-full  text-white py-6 shadow-md">
-                <div className="container mx-auto flex justify-between items-center px-6">
-                    <h1 className="text-2xl font-bold">
-                        NoteApp
-                    </h1>
-                    <nav>
-                        <a
-                            href="#about"
-                            className="text-white text-sm px-4 py-2 rounded hover:bg-blue-700 transition">
-                            About
-                        </a>
-                    </nav>
-                </div>
-            </header>
-
-            <main className="container mx-auto px-6 py-10">
+            <main className="container mx-auto px-4 py-10">
                 <section className="text-center">
-                    <h2 className="text-9xl font-extrabold text-white mb-6">
+                    <h2 className="text-5xl md:text-9xl font-extrabold text-white mb-6">
                         <span className="text-green-500">
                             Simple
                         </span>
@@ -33,21 +21,25 @@ export default function Home() {
                             No
                         </span>
                         <span>
+                            {' '}
                             Login
                         </span>
                         <span>
                             {' '}
                             , just{' '}
-                            <span
-                                className="transition-all hover:text-8xl text-red-500"
-                                role="button"
-                                onClick={() =>
-                                    (location.href =
-                                        '/notepad')
+                            <Link
+                                prefetch={
+                                    true
+                                }
+                                href={
+                                    '/notepad'
                                 }>
-                                {' '}
-                                start
-                            </span>
+                                <span
+                                    className="transition-all hover:text-8xl text-red-500"
+                                    role="button">
+                                    start
+                                </span>
+                            </Link>
                         </span>
                         <span className="text-yellow-500 ml-10">
                             writing.
@@ -57,4 +49,6 @@ export default function Home() {
             </main>
         </div>
     );
-}
+};
+
+export default memo(Home);
