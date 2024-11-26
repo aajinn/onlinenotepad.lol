@@ -8,14 +8,14 @@ const scriptinaRegular = localFont({
 });
 export default function NavBar() {
     return (
-        <div className="w-full flex justify-between">
+        <div className="w-full flex flex-col md:flex-row justify-between">
             <header className="w-full  text-white py-6 shadow-md">
-                <div className="container mx-auto flex justify-between items-center px-6">
+                <div className="container flex md:justify-between sm:justify-center items-center px-6">
                     <Link
                         prefetch={true}
                         href="./">
                         <h1
-                            className={` text-2xl font-bold mr-0`}>
+                            className={` text-2xl font-bold text-center w-full`}>
                             OnlineNotepad
                             <span
                                 className={`${scriptinaRegular.className} text-2xl font-bold text-green-500 space-x-2 ml-0`}>
@@ -25,7 +25,7 @@ export default function NavBar() {
                     </Link>
                 </div>
             </header>
-            <nav className="flex justify-end items-center w-full">
+            <nav className="flex flex-col md:flex-row justify-end items-center w-full">
                 <Link
                     prefetch={true}
                     href="/about">
