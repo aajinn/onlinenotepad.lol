@@ -6,6 +6,7 @@ import React, {
     useRef,
 } from 'react';
 import localFont from 'next/font/local';
+import Link from 'next/link';
 
 const scriptinaRegular = localFont({
     src: '../fonts/scriptina.regular.ttf',
@@ -14,50 +15,48 @@ const scriptinaRegular = localFont({
 });
 
 export default function Notepad() {
-    const [content, setContent] =
-        useState('');
-    const [lines, setLines] = useState<
-        string[]
+    const [files, setFiles] = useState<
+        {
+            id: string;
+            name: string;
+            content: string;
+            lastSaved: string;
+        }[]
     >([]);
-    const [lastSaved, setLastSaved] =
-        useState<string | null>(null);
+    const [
+        currentFileId,
+        setCurrentFileId,
+    ] = useState<string | null>(null);
     const [textSize, setTextSize] =
-        useState(16); // Default text size
+        useState(16);
 
-    // Refs for textarea and line numbers
     const textareaRef =
         useRef<HTMLTextAreaElement>(
             null,
         );
-    const linesRef =
-        useRef<HTMLDivElement>(null);
 
-    // Load content and last saved time from localStorage on mount
+    // Load files from localStorage on mount
     useEffect(() => {
-        const savedContent =
+        const savedFiles =
             localStorage.getItem(
-                'notepadContent',
-            );
-        const savedTime =
-            localStorage.getItem(
-                'lastSavedTime',
+                'notepadFiles',
             );
         const savedTextSize =
             localStorage.getItem(
                 'textSize',
             );
 
-        if (savedContent) {
-            setContent(savedContent);
-            setLines(
-                savedContent.split(
-                    '\n',
-                ),
-            );
-        }
-
-        if (savedTime) {
-            setLastSaved(savedTime);
+        if (savedFiles) {
+            const parsedFiles =
+                JSON.parse(savedFiles);
+            setFiles(parsedFiles);
+            if (
+                parsedFiles.length > 0
+            ) {
+                setCurrentFileId(
+                    parsedFiles[0].id,
+                );
+            }
         }
 
         if (savedTextSize) {
@@ -70,24 +69,15 @@ export default function Notepad() {
         }
     }, []);
 
-    // Save content and update last saved time whenever content changes
+    // Save files to localStorage whenever they change
     useEffect(() => {
         localStorage.setItem(
-            'notepadContent',
-            content,
+            'notepadFiles',
+            JSON.stringify(files),
         );
-        setLines(content.split('\n'));
+    }, [files]);
 
-        const now =
-            new Date().toLocaleString();
-        setLastSaved(now);
-        localStorage.setItem(
-            'lastSavedTime',
-            now,
-        );
-    }, [content]);
-
-    // Save text size when it changes
+    // Save text size to localStorage when it changes
     useEffect(() => {
         localStorage.setItem(
             'textSize',
@@ -95,47 +85,63 @@ export default function Notepad() {
         );
     }, [textSize]);
 
-    // Handle paste event to ensure line calculation works correctly
-    const handlePaste = (
-        event: React.ClipboardEvent<HTMLTextAreaElement>,
+    // Create a new file
+    const createNewFile = () => {
+        const newFile = {
+            id: Date.now().toString(),
+            name: `Untitled ${
+                files.length + 1
+            }`,
+            content: '',
+            lastSaved:
+                new Date().toLocaleString(),
+        };
+        setFiles([...files, newFile]);
+        setCurrentFileId(newFile.id);
+    };
+
+    // Update current file content
+    const updateCurrentFileContent = (
+        newContent: string,
     ) => {
-        const pastedData =
-            event.clipboardData.getData(
-                'text',
-            );
-        const updatedContent =
-            content.slice(
-                0,
-                textareaRef.current
-                    ?.selectionStart ||
-                    0,
-            ) +
-            pastedData +
-            content.slice(
-                textareaRef.current
-                    ?.selectionEnd ||
-                    content.length,
-            );
-
-        setContent(updatedContent);
-        setLines(
-            updatedContent.split('\n'),
+        setFiles((prevFiles) =>
+            prevFiles.map((file) =>
+                file.id ===
+                currentFileId
+                    ? {
+                          ...file,
+                          content:
+                              newContent,
+                          lastSaved:
+                              new Date().toLocaleString(),
+                      }
+                    : file,
+            ),
         );
-
-        // Prevent default paste behavior
-        event.preventDefault();
     };
 
-    // Sync scroll positions
-    const handleScroll = () => {
-        if (
-            textareaRef.current &&
-            linesRef.current
-        ) {
-            linesRef.current.scrollTop =
-                textareaRef.current.scrollTop;
-        }
+    // Update current file name
+    const updateCurrentFileName = (
+        newName: string,
+    ) => {
+        setFiles((prevFiles) =>
+            prevFiles.map((file) =>
+                file.id ===
+                currentFileId
+                    ? {
+                          ...file,
+                          name: newName,
+                      }
+                    : file,
+            ),
+        );
     };
+
+    // Get the current file
+    const currentFile = files.find(
+        (file) =>
+            file.id === currentFileId,
+    );
 
     return (
         <div className="container mx-auto p-4 max-w-full md:max-w-2xl">
@@ -145,7 +151,9 @@ export default function Notepad() {
                     className={`${scriptinaRegular.className} text-red-500`}>
                     it&apos;s
                 </span>
-                <span
+                <Link
+                    prefetch={true}
+                    href={'/'}
                     onMouseOver={(
                         event,
                     ) => {
@@ -160,59 +168,102 @@ export default function Notepad() {
                     }}
                     className="text-green-500 cursor-pointer transition-all ml-1">
                     &apos;.lol&apos;
-                </span>
+                </Link>
             </h1>
-            <div className="flex flex-col md:flex-row border rounded-lg shadow-sm">
-                {/* Line Numbers Sidebar */}
-                <div
-                    ref={linesRef}
-                    className="bg-gray-200 text-gray-700 text-right pr-4 py-2 select-none overflow-hidden md:h-[500px]">
-                    {lines.map(
-                        (_, index) => (
-                            <div
-                                className="ml-1"
-                                key={
-                                    index
-                                }
-                                style={{
-                                    fontSize:
-                                        textSize,
-                                }}>
-                                {index +
-                                    1}
-                            </div>
-                        ),
-                    )}
-                </div>
 
-                {/* Textarea */}
+            {/* File Management */}
+            <div className="flex justify-between items-center bg-gray-800 p-4 rounded-lg shadow-lg">
+                <button
+                    onClick={
+                        createNewFile
+                    }
+                    className="bg-gradient-to-r from-blue-500 to-blue-700 text-white px-6 py-2 rounded-lg hover:shadow-lg transition-shadow duration-300">
+                    New File
+                </button>
+                {currentFile && (
+                    <div className=" flex-1 mx-4">
+                        <input
+                            type="text"
+                            value={
+                                currentFile.name
+                            }
+                            onChange={(
+                                e,
+                            ) =>
+                                updateCurrentFileName(
+                                    e
+                                        .target
+                                        .value,
+                                )
+                            }
+                            className="w-full px-4 py-2 rounded-lg text-lg font-bold text-white bg-transparent shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            placeholder="Enter file name"
+                        />
+                    </div>
+                )}
+                <div className="relative flex items-center">
+                    <span className="text-white mr-2">
+                        Files:
+                    </span>
+                    <select
+                        value={
+                            currentFileId ||
+                            ''
+                        }
+                        onChange={(e) =>
+                            setCurrentFileId(
+                                e.target
+                                    .value,
+                            )
+                        }
+                        className="border border-gray-300 rounded-lg text-black h-full px-4 py-2 bg-white shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        {files.map(
+                            (file) => (
+                                <option
+                                    key={
+                                        file.id
+                                    }
+                                    value={
+                                        file.id
+                                    }>
+                                    {
+                                        file.name
+                                    }
+                                </option>
+                            ),
+                        )}
+                    </select>
+                </div>
+            </div>
+
+            {/* Editable File Name */}
+
+            {/* Text Area */}
+            <div className="flex flex-col md:flex-row border rounded-lg shadow-sm">
                 <textarea
                     ref={textareaRef}
-                    value={content}
+                    value={
+                        currentFile?.content ||
+                        ''
+                    }
                     onChange={(e) =>
-                        setContent(
+                        updateCurrentFileContent(
                             e.target
                                 .value,
                         )
-                    }
-                    onScroll={
-                        handleScroll
-                    }
-                    onPaste={
-                        handlePaste
                     }
                     style={{
                         fontSize:
                             textSize,
                     }}
-                    className="flex-1 h-[300px] md:h-[500px] p-3 border-l resize-none text-black overflow-y-scroll"
+                    className="flex-1 h-[300px] md:h-[500px] p-3 border resize-none text-black overflow-y-scroll"
                     placeholder="Start typing your notes here..."
                 />
             </div>
 
             {/* Slider for Text Size */}
             <div className="mt-4 flex items-center">
-                <label className="mr-1 text-sm  font-medium text-gray-700">
+                <label className="mr-1 text-sm font-medium text-gray-700">
                     TextSize:
                 </label>
                 <input
@@ -238,9 +289,8 @@ export default function Notepad() {
 
             <div className="mt-2 text-sm text-gray-500">
                 Last saved:{' '}
-                {lastSaved
-                    ? lastSaved
-                    : 'Never'}
+                {currentFile?.lastSaved ||
+                    'Never'}
             </div>
         </div>
     );

@@ -13,7 +13,7 @@ export default function NavBar() {
                 <div className="container flex md:justify-between sm:justify-center items-center px-6">
                     <Link
                         prefetch={true}
-                        href="./">
+                        href="/">
                         <h1
                             className={` text-2xl font-bold text-center w-full`}>
                             OnlineNotepad
@@ -28,21 +28,21 @@ export default function NavBar() {
             <nav className="flex flex-col md:flex-row justify-end items-center w-full">
                 <Link
                     prefetch={true}
-                    href="/about">
+                    href="/pages/about">
                     <span className="text-white text-sm px-4 py-2 rounded hover:bg-blue-700 transition">
                         About
                     </span>
                 </Link>
                 <Link
                     prefetch={true}
-                    href="/privacy-policy">
+                    href="/pages/privacy-policy">
                     <span className="text-white text-sm px-4 py-2 rounded hover:bg-blue-700 transition">
                         Privacy Policy
                     </span>
                 </Link>
                 <Link
                     prefetch={true}
-                    href="/terms-conditions">
+                    href="/pages/terms-conditions">
                     <span className="text-white text-sm px-4 py-2 rounded hover:bg-blue-700 transition">
                         Terms and
                         Conditions
