@@ -29,7 +29,6 @@ export default function Notepad() {
     ] = useState<string | null>(null);
     const [textSize, setTextSize] =
         useState(16);
-
     const textareaRef =
         useRef<HTMLTextAreaElement>(
             null,
@@ -137,6 +136,23 @@ export default function Notepad() {
         );
     };
 
+    // Delete the current file
+    const deleteCurrentFile = () => {
+        if (!currentFileId) return;
+        const updatedFiles =
+            files.filter(
+                (file) =>
+                    file.id !==
+                    currentFileId,
+            );
+        setFiles(updatedFiles);
+        setCurrentFileId(
+            updatedFiles.length > 0
+                ? updatedFiles[0].id
+                : null,
+        );
+    };
+
     // Get the current file
     const currentFile = files.find(
         (file) =>
@@ -172,16 +188,16 @@ export default function Notepad() {
             </h1>
 
             {/* File Management */}
-            <div className="flex justify-between items-center bg-gray-800 p-4 rounded-lg shadow-lg">
+            <div className="flex flex-col md:flex-row justify-between items-center bg-gray-800 p-4 rounded-lg shadow-lg">
                 <button
                     onClick={
                         createNewFile
                     }
-                    className="bg-gradient-to-r from-blue-500 to-blue-700 text-white px-6 py-2 rounded-lg hover:shadow-lg transition-shadow duration-300">
+                    className="bg-gradient-to-r from-blue-500 to-blue-700 text-white px-6 py-2 rounded-lg hover:shadow-lg transition-shadow duration-300 mb-2 md:mb-0">
                     New File
                 </button>
                 {currentFile && (
-                    <div className=" flex-1 mx-4">
+                    <div className="flex-1 mx-4">
                         <input
                             type="text"
                             value={
@@ -196,12 +212,15 @@ export default function Notepad() {
                                         .value,
                                 )
                             }
+                            maxLength={
+                                30
+                            }
                             className="w-full px-4 py-2 rounded-lg text-lg font-bold text-white bg-transparent shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                             placeholder="Enter file name"
                         />
                     </div>
                 )}
-                <div className="relative flex items-center">
+                <div className="relative flex items-center mb-2 md:mb-0">
                     <span className="text-white mr-2">
                         Files:
                     </span>
@@ -216,7 +235,7 @@ export default function Notepad() {
                                     .value,
                             )
                         }
-                        className="border border-gray-300 rounded-lg text-black h-full px-4 py-2 bg-white shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        className="w-32 border border-gray-300 rounded-lg text-black h-full px-4 py-2 bg-white shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500">
                         {files.map(
                             (file) => (
                                 <option
@@ -234,12 +253,20 @@ export default function Notepad() {
                         )}
                     </select>
                 </div>
+                <button
+                    onClick={
+                        deleteCurrentFile
+                    }
+                    disabled={
+                        !currentFile
+                    }
+                    className="ml-4 bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-all">
+                    Delete File
+                </button>
             </div>
 
-            {/* Editable File Name */}
-
             {/* Text Area */}
-            <div className="flex flex-col md:flex-row border rounded-lg shadow-sm">
+            <div className="flex flex-col md:flex-row border rounded-lg shadow-sm ">
                 <textarea
                     ref={textareaRef}
                     value={
