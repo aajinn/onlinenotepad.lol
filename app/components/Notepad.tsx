@@ -23,6 +23,7 @@ export default function Notepad() {
             lastSaved: string;
         }[]
     >([]);
+
     const [
         currentFileId,
         setCurrentFileId,
@@ -33,8 +34,10 @@ export default function Notepad() {
         useRef<HTMLTextAreaElement>(
             null,
         );
+    const lineNumbersRef =
+        useRef<HTMLDivElement>(null);
 
-    // Load files from localStorage on mount
+    // Load files and text size from localStorage
     useEffect(() => {
         const savedFiles =
             localStorage.getItem(
@@ -68,7 +71,6 @@ export default function Notepad() {
         }
     }, []);
 
-    // Save files to localStorage whenever they change
     useEffect(() => {
         localStorage.setItem(
             'notepadFiles',
@@ -76,7 +78,6 @@ export default function Notepad() {
         );
     }, [files]);
 
-    // Save text size to localStorage when it changes
     useEffect(() => {
         localStorage.setItem(
             'textSize',
@@ -84,7 +85,6 @@ export default function Notepad() {
         );
     }, [textSize]);
 
-    // Create a new file
     const createNewFile = () => {
         const newFile = {
             id: Date.now().toString(),
@@ -99,7 +99,6 @@ export default function Notepad() {
         setCurrentFileId(newFile.id);
     };
 
-    // Update current file content
     const updateCurrentFileContent = (
         newContent: string,
     ) => {
@@ -119,7 +118,6 @@ export default function Notepad() {
         );
     };
 
-    // Update current file name
     const updateCurrentFileName = (
         newName: string,
     ) => {
@@ -136,7 +134,6 @@ export default function Notepad() {
         );
     };
 
-    // Delete the current file
     const deleteCurrentFile = () => {
         if (!currentFileId) return;
         const updatedFiles =
@@ -153,14 +150,33 @@ export default function Notepad() {
         );
     };
 
-    // Get the current file
     const currentFile = files.find(
         (file) =>
             file.id === currentFileId,
     );
 
+    const getLineNumbers = (
+        content: string,
+    ) => {
+        const lines =
+            content.split('\n');
+        return lines.map(
+            (_, index) => index + 1,
+        );
+    };
+
+    const syncScroll = () => {
+        if (
+            textareaRef.current &&
+            lineNumbersRef.current
+        ) {
+            lineNumbersRef.current.scrollTop =
+                textareaRef.current.scrollTop;
+        }
+    };
+
     return (
-        <div className="container mx-auto p-4 max-w-full md:max-w-2xl">
+        <div className="w-full p-4 max-w-full">
             <h1 className="text-2xl font-bold mb-4 text-center">
                 Online Notepad{' '}
                 <span
@@ -186,9 +202,8 @@ export default function Notepad() {
                     &apos;.lol&apos;
                 </Link>
             </h1>
-
             {/* File Management */}
-            <div className="flex flex-col md:flex-row justify-between items-center bg-gray-800 p-4 rounded-lg shadow-lg">
+            <div className="flex flex-col md:flex-row justify-between items-center bg-gray-800 p-4 rounded-lg shadow-lg ">
                 <button
                     onClick={
                         createNewFile
@@ -264,9 +279,47 @@ export default function Notepad() {
                     Delete File
                 </button>
             </div>
+            {/* Text Area with Line Numbers */}
 
-            {/* Text Area */}
-            <div className="flex flex-col md:flex-row border rounded-lg shadow-sm ">
+            <div className="flex flex-col md:flex-row border rounded-lg shadow-sm h-[500px]">
+                {/* Line numbers column */}
+                <div
+                    ref={lineNumbersRef}
+                    className="flex flex-col bg-gray-200 p-3 overflow-y-auto "
+                    style={{
+                        width: '42px',
+                        height: '100%',
+                        scrollbarWidth:
+                            'none',
+                        msOverflowStyle:
+                            'none',
+                        scrollBehavior:
+                            'smooth',
+                    }}
+                    onScroll={
+                        syncScroll
+                    }>
+                    {currentFile &&
+                        getLineNumbers(
+                            currentFile.content,
+                        ).map(
+                            (
+                                lineNumber,
+                            ) => (
+                                <span
+                                    key={
+                                        lineNumber
+                                    }
+                                    className="text-gray-600 block text-center">
+                                    {
+                                        lineNumber
+                                    }
+                                </span>
+                            ),
+                        )}
+                </div>
+
+                {/* Textarea area */}
                 <textarea
                     ref={textareaRef}
                     value={
@@ -279,11 +332,16 @@ export default function Notepad() {
                                 .value,
                         )
                     }
+                    onScroll={
+                        syncScroll
+                    } // Sync scroll on textarea scroll
                     style={{
                         fontSize:
                             textSize,
+                        scrollBehavior:
+                            'smooth',
                     }}
-                    className="flex-1 h-[300px] md:h-[500px] p-3 border resize-none text-black overflow-y-scroll"
+                    className="bg-yellow-50 w-full flex-1 p-3 border resize-none text-black overflow-y-auto"
                     placeholder="Start typing your notes here..."
                 />
             </div>
@@ -313,7 +371,6 @@ export default function Notepad() {
                     {textSize}px
                 </span>
             </div>
-
             <div className="mt-2 text-sm text-gray-500">
                 Last saved:{' '}
                 {currentFile?.lastSaved ||
