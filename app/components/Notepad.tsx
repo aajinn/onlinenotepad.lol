@@ -5,14 +5,6 @@ import React, {
     useEffect,
     useRef,
 } from 'react';
-import localFont from 'next/font/local';
-import Link from 'next/link';
-
-const scriptinaRegular = localFont({
-    src: '../fonts/scriptina.regular.ttf',
-    variable:
-        '--font-scriptina-regular',
-});
 
 export default function Notepad() {
     const [files, setFiles] = useState<
@@ -160,33 +152,7 @@ export default function Notepad() {
     );
 
     return (
-        <div className="container mx-auto p-4 max-w-full md:max-w-2xl">
-            <h1 className="text-2xl font-bold mb-4 text-center">
-                Online Notepad{' '}
-                <span
-                    className={`${scriptinaRegular.className} text-red-500`}>
-                    it&apos;s
-                </span>
-                <Link
-                    prefetch={true}
-                    href={'/'}
-                    onMouseOver={(
-                        event,
-                    ) => {
-                        event.currentTarget.innerText =
-                            'onlinenotepad.lol';
-                    }}
-                    onMouseLeave={(
-                        event,
-                    ) => {
-                        event.currentTarget.innerText =
-                            ' .lol';
-                    }}
-                    className="text-green-500 cursor-pointer transition-all ml-1">
-                    &apos;.lol&apos;
-                </Link>
-            </h1>
-
+        <div className="w-full p-4 max-h-dvh">
             {/* File Management */}
             <div className="flex flex-col md:flex-row justify-between items-center bg-gray-800 p-4 rounded-lg shadow-lg">
                 <button
@@ -266,7 +232,7 @@ export default function Notepad() {
             </div>
 
             {/* Text Area */}
-            <div className="flex flex-col md:flex-row border rounded-lg shadow-sm ">
+            <div className="flex flex-col md:flex-row border rounded-lg shadow-sm text-bg ">
                 <textarea
                     ref={textareaRef}
                     value={

@@ -2,7 +2,7 @@ import Notepad from '../components/Notepad';
 
 export default function NoteAppPage() {
     return (
-        <div>
+        <div className="w-full">
             <Notepad />
         </div>
     );
