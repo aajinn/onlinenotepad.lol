@@ -3,3 +3,10 @@ export interface Note {
         content: string;
         createdAt: Date;
       }
+
+  export    interface Note {
+        id: string;
+        name: string;
+        content: string;
+        lastSaved: string;
+      }
