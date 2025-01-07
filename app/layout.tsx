@@ -28,6 +28,7 @@ export default function RootLayout({
     return (
         <html lang="en">
             <head>
+            
                 <meta
                     name="viewport"
                     content="width=device-width, initial-scale=1"
@@ -121,6 +122,7 @@ export default function RootLayout({
                 className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
                 {children}
                 <Footer />
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7275998015909506" crossOrigin="anonymous"></script>
             </body>
         </html>
     );
