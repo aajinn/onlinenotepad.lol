@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import NavBar from './components/NavBar';
 import Feature from './components/Feature';
+import NoteList from './components/NoteList';
 
 const Home = () => {
   return (
@@ -12,25 +13,14 @@ const Home = () => {
       <NavBar />
       <main className="container mx-auto px-4 py-10">
         <section className="w-full flex justify-center ">
+          <NoteList />
           <Link
             prefetch={
               true
             }
             href={
               '/notepad'
-            }>
-            <Image
-              src="/screen.png"
-              alt="screenshot of onlinenotepad.lol"
-              width={
-                400
-              }
-              height={
-                300
-              }
-              className="rotate-2 transition-all hover:rotate-1 "
-            />
-          </Link>
+            }></Link>
         </section>
         <section className="w-full flex flex-wrap justify-start items-center mt-2">
           <div className="flex flex-col md:flex-row md:w-1/2 lg:w-1/3 p-4">
