@@ -1,381 +1,213 @@
 'use client';
 
-import React, {
-    useState,
-    useEffect,
-    useRef,
-} from 'react';
-import localFont from 'next/font/local';
-import Link from 'next/link';
+import React, { useState, useEffect, useRef } from 'react';
 
-const scriptinaRegular = localFont({
-    src: '../fonts/scriptina.regular.ttf',
-    variable:
-        '--font-scriptina-regular',
-});
+const THEMES = {
+    light: {
+        name: 'Light',
+        bg: '#f5f6fa',
+        text: '#22223b',
+        line: '#bfc4ce',
+    },
+    dark: {
+        name: 'Dark',
+        bg: '#181a1b',
+        text: '#f5f6fa',
+        line: '#444857',
+    },
+    sepia: {
+        name: 'Sepia',
+        bg: '#f4ecd8',
+        text: '#5b4636',
+        line: '#bfae99',
+    },
+};
 
 export default function Notepad() {
-    const [files, setFiles] = useState<
-        {
-            id: string;
-            name: string;
-            content: string;
-            lastSaved: string;
-        }[]
-    >([]);
+    const [content, setContent] = useState('');
+    const [textSize, setTextSize] = useState(28);
+    const [lastSaved, setLastSaved] = useState('Never');
+    const [theme, setTheme] = useState<keyof typeof THEMES>('light');
+    const textareaRef = useRef<HTMLTextAreaElement>(null);
+    const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
 
-    const [
-        currentFileId,
-        setCurrentFileId,
-    ] = useState<string | null>(null);
-    const [textSize, setTextSize] =
-        useState(16);
-    const textareaRef =
-        useRef<HTMLTextAreaElement>(
-            null,
-        );
-    const lineNumbersRef =
-        useRef<HTMLDivElement>(null);
+    // Show notification
+    const showNotification = (message: string, type: 'success' | 'error') => {
+        setNotification({ message, type });
+        setTimeout(() => setNotification(null), 2500);
+    };
 
-    // Load files and text size from localStorage
+    // Load from localStorage
     useEffect(() => {
-        const savedFiles =
-            localStorage.getItem(
-                'notepadFiles',
-            );
-        const savedTextSize =
-            localStorage.getItem(
-                'textSize',
-            );
-
-        if (savedFiles) {
-            const parsedFiles =
-                JSON.parse(savedFiles);
-            setFiles(parsedFiles);
-            if (
-                parsedFiles.length > 0
-            ) {
-                setCurrentFileId(
-                    parsedFiles[0].id,
-                );
-            }
-        }
-
-        if (savedTextSize) {
-            setTextSize(
-                parseInt(
-                    savedTextSize,
-                    10,
-                ),
-            );
-        }
+        const savedContent = localStorage.getItem('notepadContent');
+        const savedTextSize = localStorage.getItem('textSize');
+        const savedLastSaved = localStorage.getItem('lastSaved');
+        const savedTheme = localStorage.getItem('notepadTheme');
+        if (savedContent) setContent(savedContent);
+        if (savedTextSize) setTextSize(parseInt(savedTextSize, 10));
+        if (savedLastSaved) setLastSaved(savedLastSaved);
+        if (savedTheme && (savedTheme in THEMES)) setTheme(savedTheme as keyof typeof THEMES);
     }, []);
 
+    // Save to localStorage
     useEffect(() => {
-        localStorage.setItem(
-            'notepadFiles',
-            JSON.stringify(files),
-        );
-    }, [files]);
+        localStorage.setItem('notepadContent', content);
+        const now = new Date().toLocaleString();
+        setLastSaved(now);
+        localStorage.setItem('lastSaved', now);
+    }, [content]);
 
     useEffect(() => {
-        localStorage.setItem(
-            'textSize',
-            textSize.toString(),
-        );
+        localStorage.setItem('textSize', textSize.toString());
     }, [textSize]);
 
-    const createNewFile = () => {
-        const newFile = {
-            id: Date.now().toString(),
-            name: `Untitled ${
-                files.length + 1
-            }`,
-            content: '',
-            lastSaved:
-                new Date().toLocaleString(),
-        };
-        setFiles([...files, newFile]);
-        setCurrentFileId(newFile.id);
+    useEffect(() => {
+        localStorage.setItem('notepadTheme', theme);
+    }, [theme]);
+
+    // Line numbers
+    const getLineNumbers = (content: string) => {
+        const lines = content.split('\n');
+        return lines.map((_, index) => index + 1);
     };
 
-    const updateCurrentFileContent = (
-        newContent: string,
-    ) => {
-        setFiles((prevFiles) =>
-            prevFiles.map((file) =>
-                file.id ===
-                currentFileId
-                    ? {
-                          ...file,
-                          content:
-                              newContent,
-                          lastSaved:
-                              new Date().toLocaleString(),
-                      }
-                    : file,
-            ),
-        );
+    // Download notes as .txt
+    const handleDownload = () => {
+        const blob = new Blob([content], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'notes.txt';
+        a.click();
+        URL.revokeObjectURL(url);
     };
 
-    const updateCurrentFileName = (
-        newName: string,
-    ) => {
-        setFiles((prevFiles) =>
-            prevFiles.map((file) =>
-                file.id ===
-                currentFileId
-                    ? {
-                          ...file,
-                          name: newName,
-                      }
-                    : file,
-            ),
-        );
-    };
-
-    const deleteCurrentFile = () => {
-        if (!currentFileId) return;
-        const updatedFiles =
-            files.filter(
-                (file) =>
-                    file.id !==
-                    currentFileId,
-            );
-        setFiles(updatedFiles);
-        setCurrentFileId(
-            updatedFiles.length > 0
-                ? updatedFiles[0].id
-                : null,
-        );
-    };
-
-    const currentFile = files.find(
-        (file) =>
-            file.id === currentFileId,
-    );
-
-    const getLineNumbers = (
-        content: string,
-    ) => {
-        const lines =
-            content.split('\n');
-        return lines.map(
-            (_, index) => index + 1,
-        );
-    };
-
-    const syncScroll = () => {
-        if (
-            textareaRef.current &&
-            lineNumbersRef.current
-        ) {
-            lineNumbersRef.current.scrollTop =
-                textareaRef.current.scrollTop;
+    // Copy to clipboard
+    const handleCopy = async () => {
+        try {
+            await navigator.clipboard.writeText(content);
+            showNotification('Copied to clipboard!', 'success');
+        } catch {
+            showNotification('Failed to copy.', 'error');
         }
     };
 
+    // Clear notes
+    const handleClear = () => {
+        setContent('');
+        showNotification('Notes cleared.', 'success');
+    };
+
+    const themeObj = THEMES[theme];
+
     return (
-        <div className="w-full p-4 max-w-full">
-            <h1 className="text-2xl font-bold mb-4 text-center">
-                Online Notepad{' '}
-                <span
-                    className={`${scriptinaRegular.className} text-red-500`}>
-                    it&apos;s
-                </span>
-                <Link
-                    prefetch={true}
-                    href={'/'}
-                    onMouseOver={(
-                        event,
-                    ) => {
-                        event.currentTarget.innerText =
-                            'onlinenotepad.lol';
-                    }}
-                    onMouseLeave={(
-                        event,
-                    ) => {
-                        event.currentTarget.innerText =
-                            ' .lol';
-                    }}
-                    className="text-green-500 cursor-pointer transition-all ml-1">
-                    &apos;.lol&apos;
-                </Link>
-            </h1>
-            {/* File Management */}
-            <div className="flex flex-col md:flex-row justify-between items-center bg-gray-800 p-4 rounded-lg shadow-lg ">
-                <button
-                    onClick={
-                        createNewFile
-                    }
-                    className="bg-gradient-to-r from-blue-500 to-blue-700 text-white px-6 py-2 rounded-lg hover:shadow-lg transition-shadow duration-300 mb-2 md:mb-0">
-                    New File
-                </button>
-                {currentFile && (
-                    <div className="flex-1 mx-4">
-                        <input
-                            type="text"
-                            value={
-                                currentFile.name
-                            }
-                            onChange={(
-                                e,
-                            ) =>
-                                updateCurrentFileName(
-                                    e
-                                        .target
-                                        .value,
-                                )
-                            }
-                            maxLength={
-                                30
-                            }
-                            className="w-full px-4 py-2 rounded-lg text-lg font-bold text-white bg-transparent shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            placeholder="Enter file name"
-                        />
-                    </div>
-                )}
-                <div className="relative flex items-center mb-2 md:mb-0">
-                    <span className="text-white mr-2">
-                        Files:
-                    </span>
-                    <select
-                        value={
-                            currentFileId ||
-                            ''
-                        }
-                        onChange={(e) =>
-                            setCurrentFileId(
-                                e.target
-                                    .value,
-                            )
-                        }
-                        className="w-32 border border-gray-300 rounded-lg text-black h-full px-4 py-2 bg-white shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                        {files.map(
-                            (file) => (
-                                <option
-                                    key={
-                                        file.id
-                                    }
-                                    value={
-                                        file.id
-                                    }>
-                                    {
-                                        file.name
-                                    }
-                                </option>
-                            ),
-                        )}
-                    </select>
-                </div>
-                <button
-                    onClick={
-                        deleteCurrentFile
-                    }
-                    disabled={
-                        !currentFile
-                    }
-                    className="ml-4 bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-all">
-                    Delete File
-                </button>
-            </div>
-            {/* Text Area with Line Numbers */}
-
-            <div className="flex flex-col md:flex-row border rounded-lg shadow-sm h-[500px]">
-                {/* Line numbers column */}
+        <div className="w-full mx-auto p-4 relative">
+            {/* Notification UI */}
+            {notification && (
                 <div
-                    ref={lineNumbersRef}
-                    className="flex flex-col bg-gray-200 p-3 overflow-y-auto "
-                    style={{
-                        width: '42px',
-                        height: '100%',
-                        scrollbarWidth:
-                            'none',
-                        msOverflowStyle:
-                            'none',
-                        scrollBehavior:
-                            'smooth',
-                    }}
-                    onScroll={
-                        syncScroll
-                    }>
-                    {currentFile &&
-                        getLineNumbers(
-                            currentFile.content,
-                        ).map(
-                            (
-                                lineNumber,
-                            ) => (
-                                <span
-                                    key={
-                                        lineNumber
-                                    }
-                                    className="text-gray-600 block text-center">
-                                    {
-                                        lineNumber
-                                    }
-                                </span>
-                            ),
-                        )}
+                    className={`fixed left-1/2 top-6 z-50 transform -translate-x-1/2 px-6 py-3 rounded shadow-lg text-white text-base font-semibold transition-all duration-300
+                        ${notification.type === 'success' ? 'bg-green-600' : 'bg-red-600'}`}
+                    style={{ minWidth: '200px', maxWidth: '90vw', textAlign: 'center' }}
+                >
+                    {notification.message}
                 </div>
-
-                {/* Textarea area */}
+            )}
+            {/* Header */}
+            <h1 className="text-3xl font-bold text-center mb-4" style={{ color: themeObj.text }}>Online Notepad</h1>
+            {/* Toolbar */}
+            <div className="flex flex-wrap gap-2 justify-center mb-4">
+                <button
+                    onClick={handleDownload}
+                    className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded shadow transition"
+                >
+                    Download
+                </button>
+                <button
+                    onClick={handleCopy}
+                    className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded shadow transition"
+                >
+                    Copy
+                </button>
+                <button
+                    onClick={handleClear}
+                    className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded shadow transition"
+                >
+                    Clear
+                </button>
+                {/* Font size dropdown */}
+                <label htmlFor="font-size-select" className="ml-4 mr-2 text-base font-semibold" style={{ color: themeObj.text }}>Font Size:</label>
+                <select
+                    id="font-size-select"
+                    value={textSize}
+                    onChange={e => setTextSize(parseInt(e.target.value, 10))}
+                    className="border border-gray-700 rounded px-2 py-1 text-base bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                    {[12, 14, 16, 18, 20, 24, 28, 32, 36, 40, 48, 56, 64].map(size => (
+                        <option key={size} value={size}>{size}px</option>
+                    ))}
+                </select>
+                {/* Theme switcher */}
+                <label htmlFor="theme-select" className="ml-4 mr-2 text-base font-semibold" style={{ color: themeObj.text }}>Theme:</label>
+                <select
+                    id="theme-select"
+                    value={theme}
+                    onChange={e => setTheme(e.target.value as keyof typeof THEMES)}
+                    className="border border-gray-700 rounded px-2 py-1 text-base bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                    {Object.entries(THEMES).map(([key, t]) => (
+                        <option key={key} value={key}>{t.name}</option>
+                    ))}
+                </select>
+            </div>
+            {/* Notepad area */}
+            <div
+                className="flex border rounded-lg shadow-sm w-full"
+                style={{ background: themeObj.bg }}
+            >
+                {/* Line numbers */}
+                <div
+                    className="flex flex-col py-3 px-2 select-none items-end"
+                    style={{ width: '36px', minHeight: '300px', background: themeObj.bg }}
+                >
+                    {getLineNumbers(content).map((lineNumber) => (
+                        <span
+                            key={lineNumber}
+                            className="text-xs text-right"
+                            style={{
+                                height: '1.5em',
+                                lineHeight: '1.5em',
+                                fontSize: textSize,
+                                fontFamily: 'inherit',
+                                display: 'block',
+                                color: themeObj.line,
+                            }}
+                        >
+                            {lineNumber}
+                        </span>
+                    ))}
+                </div>
+                {/* Textarea */}
                 <textarea
                     ref={textareaRef}
-                    value={
-                        currentFile?.content ||
-                        ''
-                    }
-                    onChange={(e) =>
-                        updateCurrentFileContent(
-                            e.target
-                                .value,
-                        )
-                    }
-                    onScroll={
-                        syncScroll
-                    } // Sync scroll on textarea scroll
+                    value={content}
+                    onChange={e => setContent(e.target.value)}
                     style={{
-                        fontSize:
-                            textSize,
-                        scrollBehavior:
-                            'smooth',
+                        fontSize: textSize,
+                        minHeight: '300px',
+                        height: 'auto',
+                        lineHeight: '1.5em',
+                        fontFamily: 'inherit',
+                        resize: 'none',
+                        overflow: 'hidden',
+                        background: themeObj.bg,
+                        color: themeObj.text,
                     }}
-                    className="bg-yellow-50 w-full flex-1 p-3 border resize-none text-black overflow-y-auto"
+                    className="w-full flex-1 p-3 border-0 focus:outline-none"
                     placeholder="Start typing your notes here..."
+                    rows={Math.max(15, content.split('\n').length)}
                 />
             </div>
-
-            {/* Slider for Text Size */}
-            <div className="mt-4 flex items-center">
-                <label className="mr-1 text-sm font-medium text-gray-700">
-                    TextSize:
-                </label>
-                <input
-                    type="range"
-                    min="10"
-                    max="50"
-                    value={textSize}
-                    onChange={(e) =>
-                        setTextSize(
-                            parseInt(
-                                e.target
-                                    .value,
-                                10,
-                            ),
-                        )
-                    }
-                    className="w-full"
-                />
-                <span className="ml-4 text-sm text-gray-700">
-                    {textSize}px
-                </span>
-            </div>
-            <div className="mt-2 text-sm text-gray-500">
-                Last saved:{' '}
-                {currentFile?.lastSaved ||
-                    'Never'}
-            </div>
+            <div className="mt-2 text-xs text-right" style={{ color: themeObj.line }}>Last saved: {lastSaved}</div>
         </div>
     );
 }
