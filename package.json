@@ -11,6 +11,7 @@
   "dependencies": {
     "@types/dompurify": "^3.0.5",
     "@types/uuid": "^10.0.0",
+    "critters": "^0.0.23",
     "dompurify": "^3.2.6",
     "marked": "^16.0.0",
     "next": "15.0.3",
@@ -20,8 +21,8 @@
   },
   "devDependencies": {
     "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
+    "@types/react": "^18.3.23",
+    "@types/react-dom": "^18.3.7",
     "autoprefixer": "^10.4.20",
     "eslint": "^8",
     "eslint-config-next": "15.0.3",

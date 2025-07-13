@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import NavBar from './components/NavBar';
 import Feature from './components/Feature';
+import FAQ from './components/FAQ';
 
 const Home = () => {
     return (
@@ -12,7 +13,7 @@ const Home = () => {
             <NavBar />
             <main className="container mx-auto px-4 py-10">
                 <section className="text-center">
-                    <h2 className="text-4xl md:text-6xl lg:text-8xl font-extrabold text-white mb-6">
+                    <h1 className="text-4xl md:text-6xl lg:text-8xl font-extrabold text-white mb-6">
                         <span className="text-green-500">
                             Simple
                         </span>
@@ -47,7 +48,7 @@ const Home = () => {
                         <span className="text-yellow-500 ml-2 md:ml-4 lg:ml-10">
                             writing.
                         </span>
-                    </h2>
+                    </h1>
                 </section>
 
                 <section className="w-full flex justify-center ">
@@ -58,10 +59,11 @@ const Home = () => {
                         }>
                         <Image
                             src="/screen.png"
-                            alt="screenshot of onlinenotepad.lol"
+                            alt="screenshot of onlinenotepad.lol showing the clean interface with text editor"
                             width={400}
                             height={300}
                             className="rotate-2 transition-all hover:rotate-1 "
+                            priority
                         />
                     </Link>
                 </section>
@@ -102,6 +104,11 @@ const Home = () => {
                             description="Switch between multiple files with ease. Each note is named and timestamped for better organization."
                         />
                     </div>
+                </section>
+
+                {/* FAQ Section */}
+                <section className="mt-16">
+                    <FAQ />
                 </section>
             </main>
         </div>
