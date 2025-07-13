@@ -1,67 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://onlinenotepad.lol/</loc>
+    <loc>https://www.onlinenotepad.lol/</loc>
     <lastmod>2024-01-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://onlinenotepad.lol/notepad</loc>
+    <loc>https://www.onlinenotepad.lol/notepad</loc>
     <lastmod>2024-01-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://onlinenotepad.lol/blog</loc>
+    <loc>https://www.onlinenotepad.lol/blog</loc>
     <lastmod>2024-01-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://onlinenotepad.lol/blog/productivity-tips</loc>
+    <loc>https://www.onlinenotepad.lol/blog/productivity-tips</loc>
     <lastmod>2024-01-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://onlinenotepad.lol/blog/coding-notes</loc>
+    <loc>https://www.onlinenotepad.lol/blog/coding-notes</loc>
     <lastmod>2024-01-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://onlinenotepad.lol/blog/student-guide</loc>
+    <loc>https://www.onlinenotepad.lol/blog/student-guide</loc>
     <lastmod>2024-01-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://onlinenotepad.lol/blog/privacy-security</loc>
+    <loc>https://www.onlinenotepad.lol/blog/privacy-security</loc>
     <lastmod>2024-01-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://onlinenotepad.lol/blog/workflow-optimization</loc>
+    <loc>https://www.onlinenotepad.lol/blog/workflow-optimization</loc>
     <lastmod>2024-01-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://onlinenotepad.lol/pages/about</loc>
+    <loc>https://www.onlinenotepad.lol/pages/about</loc>
     <lastmod>2024-01-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://onlinenotepad.lol/pages/privacy-policy</loc>
+    <loc>https://www.onlinenotepad.lol/pages/privacy-policy</loc>
     <lastmod>2024-01-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://onlinenotepad.lol/pages/terms-conditions</loc>
+    <loc>https://www.onlinenotepad.lol/pages/terms-conditions</loc>
     <lastmod>2024-01-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
