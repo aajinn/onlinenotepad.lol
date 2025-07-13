@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://onlinenotepad.lol/sitemap.xml
+
+# Crawl-delay for respectful crawling
+Crawl-delay: 1 

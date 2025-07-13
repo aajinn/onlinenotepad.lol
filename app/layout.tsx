@@ -7,17 +7,70 @@ const geistSans = localFont({
     src: './fonts/GeistVF.woff',
     variable: '--font-geist-sans',
     weight: '100 900',
+    display: 'swap',
 });
 const geistMono = localFont({
     src: './fonts/GeistMonoVF.woff',
     variable: '--font-geist-mono',
     weight: '100 900',
+    display: 'swap',
 });
 
 export const metadata: Metadata = {
-    title: 'Online Notepad For Free!',
-    description:
-        'Simple, no login required online notepad, use as you need!',
+    title: {
+        default: 'Free Online Notepad | No Login | Save & Share Notes Instantly',
+        template: '%s | Online Notepad'
+    },
+    description: 'Use our fast, free online notepad to write and save notes securely. No sign-up needed. Ideal for quick thoughts, code, or reminders. Features: auto-save, multiple themes, download notes.',
+    keywords: ['online notepad', 'free notepad', 'text editor', 'note taking', 'no login', 'secure notes', 'quick notes', 'code editor'],
+    authors: [{ name: 'Online Notepad' }],
+    creator: 'Online Notepad',
+    publisher: 'Online Notepad',
+    formatDetection: {
+        email: false,
+        address: false,
+        telephone: false,
+    },
+    metadataBase: new URL('https://onlinenotepad.lol'),
+    alternates: {
+        canonical: '/',
+    },
+    openGraph: {
+        type: 'website',
+        locale: 'en_US',
+        url: 'https://onlinenotepad.lol',
+        title: 'Free Online Notepad | No Login | Save & Share Notes Instantly',
+        description: 'Use our fast, free online notepad to write and save notes securely. No sign-up needed. Ideal for quick thoughts, code, or reminders.',
+        siteName: 'Online Notepad',
+        images: [
+            {
+                url: '/screen.png',
+                width: 1200,
+                height: 630,
+                alt: 'Online Notepad Screenshot',
+            },
+        ],
+    },
+    twitter: {
+        card: 'summary_large_image',
+        title: 'Free Online Notepad | No Login | Save & Share Notes Instantly',
+        description: 'Use our fast, free online notepad to write and save notes securely. No sign-up needed.',
+        images: ['/screen.png'],
+    },
+    robots: {
+        index: true,
+        follow: true,
+        googleBot: {
+            index: true,
+            follow: true,
+            'max-video-preview': -1,
+            'max-image-preview': 'large',
+            'max-snippet': -1,
+        },
+    },
+    verification: {
+        google: 'your-google-verification-code', // Add your Google Search Console verification code
+    },
 };
 
 export default function RootLayout({
@@ -28,11 +81,11 @@ export default function RootLayout({
     return (
         <html lang="en">
             <head>
-            
                 <meta
                     name="viewport"
                     content="width=device-width, initial-scale=1"
                 />
+                <link rel="canonical" href="https://onlinenotepad.lol" />
                 <link
                     rel="apple-touch-icon"
                     sizes="57x57"
@@ -116,9 +169,44 @@ export default function RootLayout({
                 />
                 <meta
                     name="theme-color"
-                    content="#ffffff"></meta>
-                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7275998015909506"
-     crossOrigin="anonymous"></script>
+                    content="#ffffff"
+                />
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7275998015909506"
+                    crossOrigin="anonymous"></script>
+
+                {/* Structured Data */}
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{
+                        __html: JSON.stringify({
+                            "@context": "https://schema.org",
+                            "@type": "WebApplication",
+                            "name": "Online Notepad",
+                            "description": "Free online notepad for writing and saving notes securely without login",
+                            "url": "https://onlinenotepad.lol",
+                            "applicationCategory": "ProductivityApplication",
+                            "operatingSystem": "Web Browser",
+                            "offers": {
+                                "@type": "Offer",
+                                "price": "0",
+                                "priceCurrency": "USD"
+                            },
+                            "featureList": [
+                                "No login required",
+                                "Auto-save functionality",
+                                "Multiple themes",
+                                "Download notes",
+                                "Copy to clipboard",
+                                "Customizable font size"
+                            ],
+                            "screenshot": "https://onlinenotepad.lol/screen.png",
+                            "author": {
+                                "@type": "Organization",
+                                "name": "Online Notepad"
+                            }
+                        })
+                    }}
+                />
             </head>
             <body
                 className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
