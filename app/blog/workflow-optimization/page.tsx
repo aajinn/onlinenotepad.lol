@@ -42,7 +42,7 @@ export default function WorkflowOptimizationPage() {
                                 </div>
 
                                 <p className="text-lg text-gray-700 mb-6">
-                                        Whether you're a student writing essays, a professional creating reports, or a creative writer crafting stories, having an effective writing workflow can dramatically improve your productivity and output quality. Online tools, particularly simple notepads, can serve as the foundation for building a streamlined writing process.
+                                        Whether you&apos;re a student writing essays, a professional creating reports, or a creative writer crafting stories, having an effective writing workflow can dramatically improve your productivity and output quality. Online tools, particularly simple notepads, can serve as the foundation for building a streamlined writing process.
                                 </p>
 
                                 <h2 className="text-2xl font-bold mt-8 mb-4">The Writing Workflow Framework</h2>
@@ -110,7 +110,7 @@ export default function WorkflowOptimizationPage() {
                                 <ul className="list-disc pl-6 mb-6">
                                         <li>Set a timer for 10-15 minutes</li>
                                         <li>Write continuously without stopping</li>
-                                        <li>Don't worry about grammar or structure</li>
+                                        <li>Don&apos;t worry about grammar or structure</li>
                                         <li>Focus on getting ideas down quickly</li>
                                         <li>Use this as raw material for your draft</li>
                                 </ul>

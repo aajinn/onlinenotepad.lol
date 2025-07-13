@@ -42,7 +42,7 @@ export default function StudentGuidePage() {
                                 </div>
 
                                 <p className="text-lg text-gray-700 mb-6">
-                                        As a student, you're constantly juggling lectures, assignments, readings, and exams. Having an effective note-taking system can make the difference between struggling and thriving academically. Online notepads offer a modern, accessible solution that can transform how you study and organize your academic life.
+                                        As a student, you&apos;re constantly juggling lectures, assignments, readings, and exams. Having an effective note-taking system can make the difference between struggling and thriving academically. Online notepads offer a modern, accessible solution that can transform how you study and organize your academic life.
                                 </p>
 
                                 <h2 className="text-2xl font-bold mt-8 mb-4">Why Students Need Digital Note-Taking</h2>
@@ -71,7 +71,7 @@ export default function StudentGuidePage() {
                                                 <br />
                                                 Key Concepts:<br />
                                                 • Power Rule: d/dx(x^n) = nx^(n-1)<br />
-                                                • Chain Rule: d/dx(f(g(x))) = f'(g(x)) * g'(x)<br />
+                                                • Chain Rule: d/dx(f(g(x))) = f&apos;(g(x)) * g&apos;(x)<br />
                                                 <br />
                                                 Examples:<br />
                                                 1. d/dx(x^3) = 3x^2<br />
@@ -219,7 +219,7 @@ export default function StudentGuidePage() {
                                         <li>Share notes with classmates</li>
                                         <li>Create study guides together</li>
                                         <li>Compare different perspectives</li>
-                                        <li>Fill in gaps in each other's notes</li>
+                                        <li>Fill in gaps in each other&apos;s notes</li>
                                 </ul>
 
                                 <h2 className="text-2xl font-bold mt-8 mb-4">Exam Preparation Strategies</h2>

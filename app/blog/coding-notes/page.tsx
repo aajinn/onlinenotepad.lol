@@ -42,7 +42,7 @@ export default function CodingNotesPage() {
                                 </div>
 
                                 <p className="text-lg text-gray-700 mb-6">
-                                        In the world of software development, having the right tools can make all the difference. While IDEs and code editors are essential for actual development, online notepads have become an invaluable companion for developers. Here's why developers are increasingly turning to simple, distraction-free text editors for their coding workflow.
+                                        In the world of software development, having the right tools can make all the difference. While IDEs and code editors are essential for actual development, online notepads have become an invaluable companion for developers. Here&apos;s why developers are increasingly turning to simple, distraction-free text editors for their coding workflow.
                                 </p>
 
                                 <h2 className="text-2xl font-bold mt-8 mb-4">1. Quick Code Snippet Storage</h2>
@@ -52,12 +52,12 @@ export default function CodingNotesPage() {
                                 <div className="bg-gray-100 p-4 rounded-lg mb-6">
                                         <p className="font-mono text-sm">
                         // Example: Quick API endpoint reference<br />
-                        const apiCall = async (url) => {'{'}<br />
+                                                const apiCall = async (url) =&gt; {'{'}<br />
                                                 &nbsp;&nbsp;try {'{'}<br />
                                                 &nbsp;&nbsp;&nbsp;&nbsp;const response = await fetch(url);<br />
                                                 &nbsp;&nbsp;&nbsp;&nbsp;return await response.json();<br />
                                                 &nbsp;&nbsp;{'}'} catch (error) {'{'}<br />
-                                                &nbsp;&nbsp;&nbsp;&nbsp;console.error('API Error:', error);<br />
+                                                &nbsp;&nbsp;&nbsp;&nbsp;console.error(&apos;API Error:&apos;, error);<br />
                                                 &nbsp;&nbsp;{'}'}<br />
                                                 {'}'};
                                         </p>
@@ -107,7 +107,7 @@ export default function CodingNotesPage() {
 
                                 <h2 className="text-2xl font-bold mt-8 mb-4">8. Performance and Speed</h2>
                                 <p className="mb-4">
-                                        Unlike heavy IDEs, online notepads load instantly and don't consume significant system resources, making them perfect for quick note-taking during development sessions.
+                                        Unlike heavy IDEs, online notepads load instantly and don&apos;t consume significant system resources, making them perfect for quick note-taking during development sessions.
                                 </p>
 
                                 <h2 className="text-2xl font-bold mt-8 mb-4">Best Practices for Coding Notes</h2>
@@ -116,7 +116,7 @@ export default function CodingNotesPage() {
                                         <ul className="list-disc pl-6 space-y-2">
                                                 <li>Use clear section headers with ### or ===</li>
                                                 <li>Include timestamps for debugging sessions</li>
-                                                <li>Add context about the problem you're solving</li>
+                                                <li>Add context about the problem you&apos;re solving</li>
                                                 <li>Include links to relevant documentation</li>
                                                 <li>Note the programming language and version</li>
                                         </ul>
@@ -133,8 +133,8 @@ export default function CodingNotesPage() {
                                                 const [data, setData] = useState(null);<br />
                                                 const [loading, setLoading] = useState(true);<br />
                                                 <br />
-                        useEffect(() => {'{'}<br />
-                        &nbsp;&nbsp;const fetchData = async () => {'{'}<br />
+                                                useEffect(() =&gt; {'{'}<br />
+                                                &nbsp;&nbsp;const fetchData = async () =&gt; {'{'}<br />
                                                 &nbsp;&nbsp;&nbsp;&nbsp;setLoading(true);<br />
                                                 &nbsp;&nbsp;&nbsp;&nbsp;const result = await api.getData();<br />
                                                 &nbsp;&nbsp;&nbsp;&nbsp;setData(result);<br />

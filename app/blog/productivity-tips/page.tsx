@@ -42,7 +42,7 @@ export default function ProductivityTipsPage() {
                                 </div>
 
                                 <p className="text-lg text-gray-700 mb-6">
-                                        Effective note-taking is a skill that can dramatically improve your productivity, learning, and organization. Whether you're a student, professional, or just someone who wants to capture ideas better, these proven strategies will help you take your note-taking to the next level.
+                                        Effective note-taking is a skill that can dramatically improve your productivity, learning, and organization. Whether you&apos;re a student, professional, or just someone who wants to capture ideas better, these proven strategies will help you take your note-taking to the next level.
                                 </p>
 
                                 <h2 className="text-2xl font-bold mt-8 mb-4">1. Use the Cornell Method</h2>
@@ -57,7 +57,7 @@ export default function ProductivityTipsPage() {
 
                                 <h2 className="text-2xl font-bold mt-8 mb-4">2. Implement the 5R Method</h2>
                                 <p className="mb-4">
-                                        Record, Reduce, Recite, Reflect, and Review. This method ensures you're not just writing down information, but actively engaging with it.
+                                        Record, Reduce, Recite, Reflect, and Review. This method ensures you&apos;re not just writing down information, but actively engaging with it.
                                 </p>
 
                                 <h2 className="text-2xl font-bold mt-8 mb-4">3. Use Color Coding</h2>
@@ -81,11 +81,11 @@ export default function ProductivityTipsPage() {
                                         Develop your own shorthand system to write faster:
                                 </p>
                                 <ul className="list-disc pl-6 mb-6">
-                                        <li>Use → for "leads to" or "results in"</li>
-                                        <li>Use ↑ for "increases" or "improves"</li>
-                                        <li>Use ↓ for "decreases" or "reduces"</li>
-                                        <li>Use w/ for "with"</li>
-                                        <li>Use w/o for "without"</li>
+                                        <li>Use → for &ldquo;leads to&rdquo; or &ldquo;results in&rdquo;</li>
+                                        <li>Use ↑ for &ldquo;increases&rdquo; or &ldquo;improves&rdquo;</li>
+                                        <li>Use ↓ for &ldquo;decreases&rdquo; or &ldquo;reduces&rdquo;</li>
+                                        <li>Use w/ for &ldquo;with&rdquo;</li>
+                                        <li>Use w/o for &ldquo;without&rdquo;</li>
                                 </ul>
 
                                 <h2 className="text-2xl font-bold mt-8 mb-4">6. Review Within 24 Hours</h2>

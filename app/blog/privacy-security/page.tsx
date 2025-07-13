@@ -42,7 +42,7 @@ export default function PrivacySecurityPage() {
                                 </div>
 
                                 <p className="text-lg text-gray-700 mb-6">
-                                        In today's digital age, privacy and security are more important than ever. When it comes to your personal notes, whether they contain sensitive work information, personal thoughts, or confidential data, understanding where and how your data is stored is crucial. Local storage in your browser provides significant security advantages over cloud-based solutions.
+                                        In today&apos;s digital age, privacy and security are more important than ever. When it comes to your personal notes, whether they contain sensitive work information, personal thoughts, or confidential data, understanding where and how your data is stored is crucial. Local storage in your browser provides significant security advantages over cloud-based solutions.
                                 </p>
 
                                 <h2 className="text-2xl font-bold mt-8 mb-4">The Privacy Problem with Cloud Storage</h2>
@@ -65,7 +65,7 @@ export default function PrivacySecurityPage() {
                                         <h3 className="text-lg font-bold mb-3">Local Storage Process:</h3>
                                         <ol className="list-decimal pl-6 space-y-2">
                                                 <li>You type your notes in the browser</li>
-                                                <li>Data is saved directly to your device's storage</li>
+                                                <li>Data is saved directly to your device&apos;s storage</li>
                                                 <li>No data is transmitted to external servers</li>
                                                 <li>Your notes remain under your complete control</li>
                                                 <li>Access requires physical access to your device</li>
@@ -142,13 +142,13 @@ export default function PrivacySecurityPage() {
 
                                 <h2 className="text-2xl font-bold mt-8 mb-4">Understanding Browser Storage</h2>
                                 <p className="mb-4">
-                                        Local storage uses your browser's built-in storage capabilities:
+                                        Local storage uses your browser&apos;s built-in storage capabilities:
                                 </p>
 
                                 <div className="bg-gray-100 p-4 rounded-lg mb-6">
                                         <h3 className="font-bold mb-2">How It Works:</h3>
                                         <ul className="text-sm space-y-1">
-                                                <li>• Data is stored in your browser's local storage</li>
+                                                <li>• Data is stored in your browser&apos;s local storage</li>
                                                 <li>• Storage is tied to the specific website domain</li>
                                                 <li>• Data persists even after closing the browser</li>
                                                 <li>• Storage limit is typically 5-10 MB per domain</li>
@@ -172,7 +172,7 @@ export default function PrivacySecurityPage() {
 
                                 <h3 className="text-xl font-bold mt-6 mb-3">Regular Backups</h3>
                                 <p className="mb-4">
-                                        While local storage is secure, it's important to back up your data:
+                                        While local storage is secure, it&apos;s important to back up your data:
                                 </p>
                                 <ul className="list-disc pl-6 mb-6">
                                         <li>Download your notes regularly as text files</li>
@@ -189,8 +189,8 @@ export default function PrivacySecurityPage() {
                                         <li>You need to access notes from multiple devices</li>
                                         <li>Collaboration with others is required</li>
                                         <li>You need advanced features like version history</li>
-                                        <li>Your notes don't contain sensitive information</li>
-                                        <li>You're comfortable with the privacy trade-offs</li>
+                                        <li>Your notes don&apos;t contain sensitive information</li>
+                                        <li>You&apos;re comfortable with the privacy trade-offs</li>
                                 </ul>
 
                                 <h2 className="text-2xl font-bold mt-8 mb-4">The Future of Privacy-First Note-Taking</h2>
