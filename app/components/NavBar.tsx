@@ -28,6 +28,13 @@ export default function NavBar() {
             <nav className="flex flex-col md:flex-row justify-end items-center w-full">
                 <Link
                     prefetch={true}
+                    href="/blog">
+                    <span className="text-white text-sm px-4 py-2 rounded hover:bg-blue-700 transition">
+                        Blog
+                    </span>
+                </Link>
+                <Link
+                    prefetch={true}
                     href="/pages/about">
                     <span className="text-white text-sm px-4 py-2 rounded hover:bg-blue-700 transition">
                         About
