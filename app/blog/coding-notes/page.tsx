@@ -49,9 +49,9 @@ export default function CodingNotesPage() {
         <p className="mb-4">
           Developers constantly encounter useful code snippets, solutions, and patterns. An online notepad provides instant access to store these without the overhead of creating new files or projects.
         </p>
-        <div className="bg-green-900 p-4 rounded-lg mb-6">
+        <div className="bg-gray-100 p-4 rounded-lg mb-6">
           <p className="font-mono text-sm">
-                        // Example: Quick API endpoint reference<br />
+            {/* Example: Quick API endpoint reference */}<br />
             const apiCall = async (url) =&gt; {'{'}<br />
             &nbsp;&nbsp;try {'{'}<br />
             &nbsp;&nbsp;&nbsp;&nbsp;const response = await fetch(url);<br />
@@ -111,7 +111,7 @@ export default function CodingNotesPage() {
         </p>
 
         <h2 className="text-2xl font-bold mt-8 mb-4">Best Practices for Coding Notes</h2>
-        <div className="bg-green-900 p-6 rounded-lg mb-6">
+        <div className="bg-blue-50 p-6 rounded-lg mb-6">
           <h3 className="text-lg font-bold mb-3">Organize Your Code Notes:</h3>
           <ul className="list-disc pl-6 space-y-2">
             <li>Use clear section headers with ### or ===</li>
@@ -123,7 +123,7 @@ export default function CodingNotesPage() {
         </div>
 
         <h2 className="text-2xl font-bold mt-8 mb-4">Example Coding Note Structure</h2>
-        <div className="bg-green-900 p-4 rounded-lg mb-6">
+        <div className="bg-gray-100 p-4 rounded-lg mb-6">
           <p className="font-mono text-sm">
             === React Hooks Issue - 2024-01-12 ===<br />
             Problem: useState not updating in useEffect<br />
