@@ -55,6 +55,15 @@ const blogPosts = [
                 readTime: '6 min read',
                 category: 'Workflow',
                 color: 'orange'
+        },
+        {
+                id: 'how-to-use-online-notepad',
+                title: 'How to Use an Online Notepad for Quick Note-Taking',
+                excerpt: 'Discover how online notepads make jotting down thoughts, reminders, or ideas quick and hassle-free. Learn the benefits, use cases, and tips for maximizing your note-taking experience.',
+                date: '2024-06-07',
+                readTime: '8 min read',
+                category: 'Productivity',
+                color: 'blue'
         }
 ];
 
