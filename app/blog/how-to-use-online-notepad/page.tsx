@@ -68,7 +68,7 @@ export default function HowToUseOnlineNotepadPage() {
         <h2 className="text-2xl font-bold mt-8 mb-4">How to Use an Online Notepad for Quick Notes</h2>
         <p className="mb-4">Using an online notepad is as straightforward as it gets. Here’s a step-by-step breakdown of how to use <a href="https://onlinenotepad.lol" target="_blank" rel="noopener noreferrer">OnlineNotepad.lol</a>:</p>
         <h3 className="text-xl font-bold mt-6 mb-3">Step 1: Open the Site</h3>
-        <p className="mb-4">Go to <a href="https://onlinenotepad.lol" target="_blank" rel="noopener noreferrer">https://onlinenotepad.lol</a>. The clean interface loads instantly, and you're immediately greeted with a blank text area.</p>
+        <p className="mb-4">Go to <a href="https://onlinenotepad.lol" target="_blank" rel="noopener noreferrer">https://onlinenotepad.lol</a>. The clean interface loads instantly, and you&apos;re immediately greeted with a blank text area.</p>
         <h3 className="text-xl font-bold mt-6 mb-3">Step 2: Start Typing</h3>
         <p className="mb-4">No distractions, no sign-up prompts. Just click into the page and begin typing your:</p>
         <ul className="list-disc pl-6 mb-6">
@@ -165,7 +165,7 @@ export default function HowToUseOnlineNotepadPage() {
 
         <h2 className="text-2xl font-bold mt-8 mb-4">Tips to Maximize Your Online Notepad Experience</h2>
         <ul className="list-disc pl-6 mb-6">
-          <li><strong>Pin the tab</strong>: If you're working on something long-term, pin it in your browser so it's always there.</li>
+          <li><strong>Pin the tab</strong>: If you&apos;re working on something long-term, pin it in your browser so it&apos;s always there.</li>
           <li><strong>Use keyboard shortcuts</strong>: Ctrl+C/V for fast copy-paste; Ctrl+Z to undo.</li>
           <li><strong>Keep it clean</strong>: Use one notepad per task or session to stay organized.</li>
           <li><strong>Use browser extensions</strong>: Some let you reopen closed tabs in case you lose your notes.</li>
